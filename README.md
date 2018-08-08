@@ -4,7 +4,9 @@
 2. Open up a terminal or command prompt
 3. In the terminal, go to the location where you downloaded the jar
 4. On the command line enter the following command, when in same directory as file(you will need java 8 installed)
+
 ```java -jar BasicATM.jar```
+
 5. You should be greeted with a screen like this: ![ATM Splashscreen](https://github.com/zbartholomew/BasicATM/blob/master/Screen%20Shot%202018-08-07%20at%206.19.15%20PM.png)
 6. I have provided 3 dummy customers with the following credentials for you to test on
 ```
