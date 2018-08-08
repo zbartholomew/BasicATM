@@ -77,16 +77,7 @@ public class Account
      */
     public void addTransaction(Transaction transaction)
     {
-        Date currentTransactionDate = transaction.getTimestamp();
-        DateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
-        Date today = null;
-        try
-        {
-            today = dateFormat.parse(dateFormat.format(currentTransactionDate));
-        } catch (ParseException e)
-        {
-            System.err.println("Unable to parse the date time for transaction");
-        }
+        Date today = getCurrentDate(transaction.getTimestamp());
         int transactionAmount = transaction.getAmount();
         // Check to see if transaction amount is greater than withdraw limit
         if (transaction.getAmount() > DAILY_WITHDRAW_LIMIT)
@@ -96,34 +87,8 @@ public class Account
             // Make sure new balance is positive
             if (tempBalanceAfterTransaction.compareTo(BigDecimal.ZERO) >= 0)
             {
-                // See if there are transactions on this account for this day
-                if (!transactionMap.isEmpty() && transactionMap.get(today) != null)
-                {
-                    List<Transaction> dailyTransactionList = transactionMap.get(today);
-                    int dailyTransactionTotal = dailyTransactionList
-                            .stream()
-                            .filter(i -> i.getAmount() < 0)
-                            .mapToInt(Transaction::getAmount)
-                            .sum();
-                    dailyTransactionTotal += transactionAmount;
-                    // compare latest transaction timestamp with current transaction timestamp
-                    if (dailyTransactionTotal > DAILY_WITHDRAW_LIMIT)
-                    {
-                        // Add transaction to list of daily transactions
-                        balance = balance.add(BigDecimal.valueOf(transactionAmount));
-                        transactionMap.get(today).add(transaction);
-                    } else
-                    {
-                        throw new IllegalArgumentException("Cannot process a transaction amount of " + transactionAmount +
-                                " because it is over your daily limit of " + DAILY_WITHDRAW_LIMIT);
-                    }
-                } else
-                {
-                    balance = balance.add(BigDecimal.valueOf(transactionAmount));
-                    List<Transaction> transactionList = new ArrayList<>();
-                    transactionList.add(transaction);
-                    this.transactionMap.put(today, transactionList);
-                }
+                // Updates transaction map and balance with new transaction amount
+                updateTransactionMapAndBalance(transaction, today);
             } else
             {
                 throw new IllegalArgumentException("Cannot process a transaction amount of " + transactionAmount +
@@ -135,6 +100,69 @@ public class Account
             throw new IllegalArgumentException("Cannot process a transaction amount of " + transactionAmount +
                     " because it is over your daily limit of " + DAILY_WITHDRAW_LIMIT);
         }
+    }
+
+    /**
+     * Updates the transaction map and current balance.
+     *
+     * @param transaction current transaction being added
+     * @param today       used to lookup list of transactions
+     */
+    private void updateTransactionMapAndBalance(Transaction transaction, Date today)
+    {
+        int transactionAmount = transaction.getAmount();
+        if (!transactionMap.isEmpty() && transactionMap.get(today) != null)
+        {
+            int dailyWithdrawalTransactionTotal = getDailyWithdrawalTransactionTotal(today);
+            dailyWithdrawalTransactionTotal += transactionAmount;
+            // compare latest transaction timestamp with current transaction timestamp
+            if (dailyWithdrawalTransactionTotal > DAILY_WITHDRAW_LIMIT)
+            {
+                // Add transaction to list of daily transactions
+                balance = balance.add(BigDecimal.valueOf(transactionAmount));
+                transactionMap.get(today).add(transaction);
+            } else
+            {
+                throw new IllegalArgumentException("Cannot process a transaction amount of " + transactionAmount +
+                        " because it is over your daily limit of " + DAILY_WITHDRAW_LIMIT);
+            }
+        } else
+        {
+            balance = balance.add(BigDecimal.valueOf(transactionAmount));
+            List<Transaction> transactionList = new ArrayList<>();
+            transactionList.add(transaction);
+            this.transactionMap.put(today, transactionList);
+        }
+    }
+
+    /**
+     * Calculates the total withdrawal amounts for the day
+     *
+     * @param today day used to calculate all withdrawals
+     * @return sum of all withdrawals
+     */
+    private int getDailyWithdrawalTransactionTotal(Date today)
+    {
+        List<Transaction> dailyTransactionList = transactionMap.get(today);
+        return dailyTransactionList
+                .stream()
+                .filter(i -> i.getAmount() < 0)
+                .mapToInt(Transaction::getAmount)
+                .sum();
+    }
+
+    private Date getCurrentDate(Date timestamp)
+    {
+        DateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
+        Date today = null;
+        try
+        {
+            today = dateFormat.parse(dateFormat.format(timestamp));
+        } catch (ParseException e)
+        {
+            System.err.println("Unable to parse the date time for transaction");
+        }
+        return today;
     }
 
     public UUID getUuid()
