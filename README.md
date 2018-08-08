@@ -1,9 +1,9 @@
 # BasicATM Project
 ## How to run project
-1. Download the BasicATM.jar located in the out/artifacts/BasicATM_jar
+1. Download the BasicATM.jar located in the out/artifacts/BasicATM_jar located within this repo
 2. Open up a terminal or command prompt
 3. In the terminal, go to the location where you downloaded the jar
-4. On the command line enter the following command (you will need java 8 installed)
+4. On the command line enter the following command, when in same directory as file(you will need java 8 installed)
 ```java -jar BasicATM.jar```
 5. You should be greeted with a screen like this: ![ATM Splashscreen](https://github.com/zbartholomew/BasicATM/blob/master/Screen%20Shot%202018-08-07%20at%206.19.15%20PM.png)
 6. I have provided 3 dummy customers with the following credentials for you to test on
@@ -16,7 +16,7 @@ Userame: billybob    PIN: 2222
 ## Known Issues
 * The scanner logic in the front end needs more error checking
 
-## Feature enhancements
+## Future enhancements
 * Possibly split out business logic from ATM and use it merely as a view - have controllers for data that will be manipulated
 * Instead of keeping static field of all users we could split this out and use persistent storage like MySQL
 * Allow customers to have multiple accounts
