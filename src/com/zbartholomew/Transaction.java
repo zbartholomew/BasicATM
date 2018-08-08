@@ -5,7 +5,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 /**
- * Represents a Transaction that allows a current user
+ * Represents a Transaction that allows a current customer
  *
  * @author Zach Bartholomew
  */

@@ -34,10 +34,6 @@ public class ATM
         System.out.println("Please enter your username:");
 
         String username = input.nextLine();
-        if (username.isEmpty())
-        {
-            username = input.nextLine();
-        }
 
         customer = Customer.getUser(username);
         if (customer != null)
@@ -59,6 +55,7 @@ public class ATM
         try
         {
             int pin = input.nextInt();
+            input.nextLine();
 
             int remainingChances = 3;
             if (isPinValid(pin))
@@ -103,6 +100,7 @@ public class ATM
         try
         {
             int selection = input.nextInt();
+            input.nextLine();
 
             switch (selection)
             {
@@ -146,6 +144,7 @@ public class ATM
     {
         System.out.println("Please enter the amount you want to withdraw (Daily limit of " + Math.abs(DAILY_WITHDRAW_LIMIT) + ")");
         int amount = input.nextInt();
+        input.nextLine();
 
         if (!isPositiveAmount(amount) || customer == null)
         {
@@ -234,10 +233,11 @@ public class ATM
      */
     private void returnToUserMenu()
     {
-        System.out.println("Press any key to return to Main Menu");
+        System.out.println("Press enter key to return to Main Menu");
         try
         {
             System.in.read();
+            input.nextLine();
             createUserMenu();
         } catch (IOException e)
         {
@@ -250,10 +250,11 @@ public class ATM
      */
     private void returnToWelcomeMenu()
     {
-        System.out.println("Press any key to return to Welcome Menu");
+        System.out.println("Press enter key to return to Welcome Menu");
         try
         {
             System.in.read();
+            input.nextLine();
             createWelcomeMenu();
         } catch (IOException e)
         {
