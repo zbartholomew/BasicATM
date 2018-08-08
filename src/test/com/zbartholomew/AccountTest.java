@@ -25,7 +25,7 @@ public class AccountTest
         Assert.assertNotNull(account.getUuid());
     }
 
-    @Test (expected = IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testAddTransactionDailyLimit()
     {
         Account account = customer.getAccount();
@@ -43,7 +43,7 @@ public class AccountTest
         new Transaction(-601, account);
     }
 
-    @Test (expected = IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testAddTransactionDailyLimitMultipleWithdraws()
     {
         Account account = customer.getAccount();
@@ -61,7 +61,7 @@ public class AccountTest
         new Transaction(-400, account);
     }
 
-    @Test (expected = IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testAddTransactionNegativeBalance()
     {
         Account account = customer.getAccount();

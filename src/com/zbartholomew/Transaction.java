@@ -26,8 +26,8 @@ public class Transaction
     /**
      * Creates a Transaction for the account specified
      *
-     * @param amount                transaction amount we are trying to withdraw or deposit
-     * @param transactionAccount    account associated with the transaction
+     * @param amount             transaction amount we are trying to withdraw or deposit
+     * @param transactionAccount account associated with the transaction
      */
     public Transaction(int amount, Account transactionAccount)
     {

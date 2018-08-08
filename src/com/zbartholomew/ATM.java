@@ -144,7 +144,7 @@ public class ATM
      */
     private void withdraw()
     {
-        System.out.println("Please enter the amount you want to withdraw (Daily limit of " + DAILY_WITHDRAW_LIMIT + ")");
+        System.out.println("Please enter the amount you want to withdraw (Daily limit of " + Math.abs(DAILY_WITHDRAW_LIMIT) + ")");
         int amount = input.nextInt();
 
         if (!isPositiveAmount(amount) || customer == null)
@@ -154,7 +154,7 @@ public class ATM
 
         if (amount < DAILY_WITHDRAW_LIMIT)
         {
-            System.out.println("The requested amount of " + amount + " is greater than the daily withdraw limit of " + DAILY_WITHDRAW_LIMIT);
+            System.out.println("The requested amount of " + amount + " is greater than the daily withdraw limit of " + Math.abs(DAILY_WITHDRAW_LIMIT));
         }
 
         try
@@ -214,8 +214,8 @@ public class ATM
 
     /**
      * Validates the PIN supplied is a valid pin for the customer
-     * @param pin
-     * @return
+     * @param pin supplied pin to compare
+     * @return true if pin is valid and false if not
      */
     private boolean isPinValid(int pin)
     {

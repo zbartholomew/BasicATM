@@ -24,20 +24,20 @@ public class TransactionTest
         Assert.assertEquals("Amount should equal transaction amount", 50, transaction.getAmount());
     }
 
-    @Test (expected = NullPointerException.class)
+    @Test(expected = NullPointerException.class)
     public void testConstructorNull()
     {
         new Transaction(50, null);
     }
 
-    @Test (expected = IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testConstructorAmountOverBalance()
     {
         Assert.assertNotNull(customer.getAccount());
         new Transaction(-60, customer.getAccount());
     }
 
-    @Test (expected = IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testConstructorNegativeAmount()
     {
         Assert.assertNotNull(customer.getAccount());

@@ -62,6 +62,7 @@ public class Customer
 
     /**
      * Decrypts the PIN and validates the User's PIN is the same as the one provided
+     *
      * @param pin compared to encrypted pin
      * @return true if valid pin, false if not
      */
@@ -89,7 +90,8 @@ public class Customer
 
     /**
      * Searches the customer map for the username provided
-     * @param username  key value to user map
+     *
+     * @param username key value to user map
      * @return {@link Customer}
      */
     public static Customer getUser(String username)
