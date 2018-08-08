@@ -1,6 +1,6 @@
 # BasicATM Project
 ## How to run project
-1. Download the BasicATM.jar located in the out/artifacts/BasicATM_jar located within this repo
+1. Download the [BasicATM.jar](https://github.com/zbartholomew/BasicATM/blob/master/out/artifacts/BasicATM_jar/BasicATM.jar) located within this repo
 2. Open up a terminal or command prompt
 3. In the terminal, go to the location where you downloaded the jar
 4. On the command line enter the following command, when in same directory as file(you will need java 8 installed)
